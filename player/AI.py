@@ -291,38 +291,38 @@ class AI:
                         if gametiles[y][x].pieceonTile.tostring()=='N':
                             value=value-275
                             if self.GameStatus(gametiles) == "M":
-                                value = value - (2.75 * knight_tableMGW[y][x])
+                                value = value - (knight_tableMGW[y][x])
                             if self.GameStatus(gametiles) == "E":
-                                value = value - (2.75 * knight_tableEGW[y][x])
+                                value = value - (knight_tableEGW[y][x])
 
 
                         if gametiles[y][x].pieceonTile.tostring()=='B':
                             value=value-325
                             if self.GameStatus(gametiles) == "M":
-                                value = value - (3.25 * bishop_tableMGW[y][x])
+                                value = value - (bishop_tableMGW[y][x])
                             if self.GameStatus(gametiles) == "E":
-                                value = value - (3.25 * bishop_tableEGW[y][x])
+                                value = value - (bishop_tableEGW[y][x])
 
                         if gametiles[y][x].pieceonTile.tostring()=='R':
                             value=value-525
                             if self.GameStatus(gametiles) == "M":
-                                value = value - (5.25 * rook_tableMGW[y][x])
+                                value = value - (rook_tableMGW[y][x])
                             if self.GameStatus(gametiles) == "E":
-                                value = value - (5.25 * rook_tableEGW[y][x])
+                                value = value - (rook_tableEGW[y][x])
 
                         if gametiles[y][x].pieceonTile.tostring()=='Q':
                             value=value-1000
                             if self.GameStatus(gametiles) == "M":
-                                value = value - (10 * queen_tableMGW[y][x])
+                                value = value - (queen_tableMGW[y][x])
                             if self.GameStatus(gametiles) == "E":
-                                value = value - (10 * queen_tableEGW[y][x])
+                                value = value - (queen_tableEGW[y][x])
 
                         if gametiles[y][x].pieceonTile.tostring()=='K':
                             value=value-10000
                             if self.GameStatus(gametiles) == "M":
-                                value = value - (100 * king_tableMGW[y][x])
+                                value = value - (king_tableMGW[y][x])
                             if self.GameStatus(gametiles) == "E":
-                                value = value - (100 * king_tableEGW[y][x])
+                                value = value - (king_tableEGW[y][x])
 
                         if gametiles[y][x].pieceonTile.tostring()=='p':
                             value=value+100
@@ -334,37 +334,37 @@ class AI:
                         if gametiles[y][x].pieceonTile.tostring()=='n':
                             value=value+ 275  
                             if self.GameStatus(gametiles) == "M":
-                                value = value + (2.75 * knight_tableMGB[y][x])
+                                value = value + (knight_tableMGB[y][x])
                             if self.GameStatus(gametiles) == "E":
-                                value = value + (2.75 * knight_tableEGB[y][x]) 
+                                value = value + (knight_tableEGB[y][x]) 
 
                         if gametiles[y][x].pieceonTile.tostring()=='b':
                             value=value+325
                             if self.GameStatus(gametiles) == "M":
-                                value = value + (3.25 * bishop_tableMGB[y][x])
+                                value = value + (bishop_tableMGB[y][x])
                             if self.GameStatus(gametiles) == "E":
-                                value = value + (3.25 * bishop_tableEGB[y][x])
+                                value = value + (bishop_tableEGB[y][x])
 
                         if gametiles[y][x].pieceonTile.tostring()=='r':
                             value=value+525
                             if self.GameStatus(gametiles) == "M":
-                                value = value + (5.25 * rook_tableMGB[y][x])
+                                value = value + (rook_tableMGB[y][x])
                             if self.GameStatus(gametiles) == "E":
-                                value = value + (5.25 * rook_tableEGB[y][x])
+                                value = value + (rook_tableEGB[y][x])
 
                         if gametiles[y][x].pieceonTile.tostring()=='q':
                             value=value+1000
                             if self.GameStatus(gametiles) == "M":
-                                value = value + (10 * queen_tableMGB[y][x])
+                                value = value + (queen_tableMGB[y][x])
                             if self.GameStatus(gametiles) == "E":
-                                value = value + (10 * queen_tableEGB[y][x])
+                                value = value + (queen_tableEGB[y][x])
 
                         if gametiles[y][x].pieceonTile.tostring()=='k':
                             value=value+10000
                             if self.GameStatus(gametiles) == "M":
-                                value = value + (100 * king_tableMGB[y][x])
+                                value = value + (king_tableMGB[y][x])
                             if self.GameStatus(gametiles) == "E":
-                                value = value + (100 * king_tableEGB[y][x])
+                                value = value + (king_tableEGB[y][x])
 
         return value
 
@@ -372,9 +372,9 @@ class AI:
         count = 0
         for x in range(8):
             for y in range(8):
-                if gametiles.pieceonTile.toString()=='q' or gametiles.pieceonTile.toString()=='Q':
+                if gametiles[y][x].pieceonTile.tostring()=='q' or gametiles.pieceonTile.tostring()=='Q':
                     return "M"
-                elif gametiles.pieceonTile():
+                elif gametiles[y][x].pieceonTile.tostring() in ["p","q","r","k","n","b","P","Q","R","K","N","B"]:
                     count += 1
         if count < 9:
             return "E"
