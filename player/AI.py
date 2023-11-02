@@ -372,7 +372,7 @@ class AI:
         count = 0
         for x in range(8):
             for y in range(8):
-                if gametiles[y][x].pieceonTile.tostring()=='q' or gametiles.pieceonTile.tostring()=='Q':
+                if gametiles[y][x].pieceonTile.tostring()=='q' or gametiles[y][x].pieceonTile.tostring()=='Q':
                     return "M"
                 elif gametiles[y][x].pieceonTile.tostring() in ["p","q","r","k","n","b","P","Q","R","K","N","B"]:
                     count += 1
