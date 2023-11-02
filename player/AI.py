@@ -277,44 +277,49 @@ class AI:
         king_tableEGB = [[-74, -35, -18, -18, -11,  15,   4, -17],[-12,  17,  14,  17,  17,  38,  23,  11],[10,  17,  23,  15,  20,  45,  44,  13],[-8,  22,  24,  27,  26,  33,  26,   3], [-18,  -4,  21,  24,  27,  23,   9, -11],[-19,  -3,  11,  21,  23,  16,   7,  -9], [-27, -11,   4,  13,  14,   4,  -5, -17],[-53, -34, -21, -11, -28, -14, -24, -43]]
         king_tableEGW = king_tableEGB[::-1]
 
-        
+        G = self.GameStatus(gametiles)
+        D = self.pawnDouble()
         for x in range(8):
                 for y in range(8):
                         if gametiles[y][x].pieceonTile.tostring()=='P':
                             value=value-100
-                            if self.GameStatus(gametiles) == "M":
+                            if G == "M":
                                 value = value - pawn_tableMGW[y][x]
-                            if self.GameStatus(gametiles) == "E":
+                            if G == "E":
                                 value = value - pawn_tableEGW[y][x]
+                            if self.pawnDouble(gametiles,y,'P') == "D":
+                                value = value + 50
+                            if self.pawnIsolated(gametiles,y,'P') == 'I':
+                                value = value - 25
                             
 
                         if gametiles[y][x].pieceonTile.tostring()=='N':
                             value=value-275
-                            if self.GameStatus(gametiles) == "M":
+                            if G == "M":
                                 value = value - (knight_tableMGW[y][x])
-                            if self.GameStatus(gametiles) == "E":
+                            if G == "E":
                                 value = value - (knight_tableEGW[y][x])
 
 
                         if gametiles[y][x].pieceonTile.tostring()=='B':
                             value=value-325
-                            if self.GameStatus(gametiles) == "M":
+                            if G == "M":
                                 value = value - (bishop_tableMGW[y][x])
-                            if self.GameStatus(gametiles) == "E":
+                            if G == "E":
                                 value = value - (bishop_tableEGW[y][x])
 
                         if gametiles[y][x].pieceonTile.tostring()=='R':
                             value=value-525
-                            if self.GameStatus(gametiles) == "M":
+                            if G == "M":
                                 value = value - (rook_tableMGW[y][x])
-                            if self.GameStatus(gametiles) == "E":
+                            if G == "E":
                                 value = value - (rook_tableEGW[y][x])
 
                         if gametiles[y][x].pieceonTile.tostring()=='Q':
                             value=value-1000
-                            if self.GameStatus(gametiles) == "M":
+                            if G == "M":
                                 value = value - (queen_tableMGW[y][x])
-                            if self.GameStatus(gametiles) == "E":
+                            if G == "E":
                                 value = value - (queen_tableEGW[y][x])
 
                         if gametiles[y][x].pieceonTile.tostring()=='K':
@@ -326,44 +331,48 @@ class AI:
 
                         if gametiles[y][x].pieceonTile.tostring()=='p':
                             value=value+100
-                            if self.GameStatus(gametiles) == "M":
+                            if G == "M":
                                 value = value + pawn_tableMGB[y][x]
-                            if self.GameStatus(gametiles) == "E":
+                            if G == "E":
                                 value = value + pawn_tableEGB[y][x]
+                            if self.pawnDouble(gametiles,y,'p') == "D":
+                                value = value - 50
+                            if self.pawnIsolated(gametiles,y,'p') == 'I':
+                                value = value - 25
 
                         if gametiles[y][x].pieceonTile.tostring()=='n':
                             value=value+ 275  
-                            if self.GameStatus(gametiles) == "M":
+                            if G == "M":
                                 value = value + (knight_tableMGB[y][x])
-                            if self.GameStatus(gametiles) == "E":
+                            if G == "E":
                                 value = value + (knight_tableEGB[y][x]) 
 
                         if gametiles[y][x].pieceonTile.tostring()=='b':
                             value=value+325
-                            if self.GameStatus(gametiles) == "M":
+                            if G == "M":
                                 value = value + (bishop_tableMGB[y][x])
-                            if self.GameStatus(gametiles) == "E":
+                            if G == "E":
                                 value = value + (bishop_tableEGB[y][x])
 
                         if gametiles[y][x].pieceonTile.tostring()=='r':
                             value=value+525
-                            if self.GameStatus(gametiles) == "M":
+                            if G == "M":
                                 value = value + (rook_tableMGB[y][x])
-                            if self.GameStatus(gametiles) == "E":
+                            if G == "E":
                                 value = value + (rook_tableEGB[y][x])
 
                         if gametiles[y][x].pieceonTile.tostring()=='q':
                             value=value+1000
-                            if self.GameStatus(gametiles) == "M":
+                            if G == "M":
                                 value = value + (queen_tableMGB[y][x])
-                            if self.GameStatus(gametiles) == "E":
+                            if G == "E":
                                 value = value + (queen_tableEGB[y][x])
 
                         if gametiles[y][x].pieceonTile.tostring()=='k':
                             value=value+10000
-                            if self.GameStatus(gametiles) == "M":
+                            if G == "M":
                                 value = value + (king_tableMGB[y][x])
-                            if self.GameStatus(gametiles) == "E":
+                            if G == "E":
                                 value = value + (king_tableEGB[y][x])
 
         return value
@@ -381,6 +390,28 @@ class AI:
         else:
             return "M"
 
+    def pawnDouble(self,gametiles,y,piece):
+        count = 0
+        for x in range(8):
+            if gametiles[y][x] == piece:
+                count += 1
+            if count > 1:
+                return "D"
+        return "ND"
+    
+    def pawnIsolated(self, gametiles, y, piece):
+        count = 0
+        for x in range(8):
+            if y > 0 and gametiles[y-1][x] == piece:
+                count += 1
+            if y < 7 and gametiles[y+1][x] == piece:
+                count += 1
+
+        if count == 0:
+            return "I"
+        else:
+            return "NI"
+        
 
 
 
