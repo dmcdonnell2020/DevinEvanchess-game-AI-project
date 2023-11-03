@@ -278,11 +278,10 @@ class AI:
         king_tableEGW = king_tableEGB[::-1]
 
         G = self.GameStatus(gametiles)
-        D = self.pawnDouble()
+
         for x in range(8):
                 for y in range(8):
                         if gametiles[y][x].pieceonTile.tostring()=='P':
-                            value=value-100
                             if G == "M":
                                 value = value - pawn_tableMGW[y][x]
                             if G == "E":
@@ -290,7 +289,7 @@ class AI:
                             if self.pawnDouble(gametiles,y,'P') == "D":
                                 value = value + 50
                             if self.pawnIsolated(gametiles,y,'P') == 'I':
-                                value = value - 25
+                                value = value + 25
                             
 
                         if gametiles[y][x].pieceonTile.tostring()=='N':
@@ -328,9 +327,10 @@ class AI:
                                 value = value - (king_tableMGW[y][x])
                             if self.GameStatus(gametiles) == "E":
                                 value = value - (king_tableEGW[y][x])
+                           # if move.castlingW(gametiles) == "qs" or move.castlingW(gametiles) == "ks":
+                                #value = value - 75
 
                         if gametiles[y][x].pieceonTile.tostring()=='p':
-                            value=value+100
                             if G == "M":
                                 value = value + pawn_tableMGB[y][x]
                             if G == "E":
@@ -374,6 +374,8 @@ class AI:
                                 value = value + (king_tableMGB[y][x])
                             if G == "E":
                                 value = value + (king_tableEGB[y][x])
+                            #if move.castlingB(gametiles) == "qs" or move.castlingB(gametiles) == "ks":
+                                #value = value + 75
 
         return value
 
